@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
+use App\Models\Survey;
 
 class SurveyController extends Controller
 {
@@ -20,7 +23,9 @@ class SurveyController extends Controller
     public function create()
     {
         //
-        return view()
+        return Inertia::render('Surveys/Create', [
+            
+        ]);;
     }
 
     /**
