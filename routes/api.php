@@ -26,3 +26,9 @@ Route::put('/surveys/create/{survey}', function (Survey $survey, Request $reques
 
    $survey->save();
 });
+
+
+Route::resource('/survey', 'SurveyAPIController', ['only' => [
+    'index', 'store', 'update', 'destroy', 'show',
+]]);
+Route::resource('/survey/{survey}/result', 'SurveyResultAPIController');

@@ -15,4 +15,14 @@ class Survey extends Model
         'name',
         'user_id'
     ];
+
+     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function results()
+    {
+        return $this->hasMany('App\Models\SurveyResult', 'survey_id');
+    }
+
+
 }
