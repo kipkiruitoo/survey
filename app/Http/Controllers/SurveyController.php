@@ -20,12 +20,15 @@ class SurveyController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Survey $survey)
     {
+        // dd($survey);
         //
         return Inertia::render('Surveys/Create', [
-            
-        ]);;
+            'structure' => $survey->structure,
+            'surveyid'=> (String) $survey->id,
+            'name' => $survey->name,
+        ]);
     }
 
     /**

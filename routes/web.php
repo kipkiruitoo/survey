@@ -30,7 +30,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/surveys/create', [SurveyController::class, 'create'])->name('surveys.create');
+Route::get('/admin/surveys/create/{survey}', [SurveyController::class, 'create'])->name('surveys.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

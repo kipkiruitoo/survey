@@ -18,6 +18,7 @@ use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use App\Orchid\Screens\TaskScreen;
+use App\Orchid\Screens\SurveyScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -110,3 +111,9 @@ Route::screen('task', TaskScreen::class)->name('platform.task')->breadcrumbs(fun
         ->parent('platform.index')
         ->push('Task');
     });
+
+    Route::screen('survey', SurveyScreen::class)->name('platform.survey')->breadcrumbs(function (Trail $trail){
+        return $trail
+            ->parent('platform.index')
+            ->push('Survey');
+        });

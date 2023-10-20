@@ -90,10 +90,15 @@ class PlatformProvider extends OrchidServiceProvider
                 ->target('_blank')
                 ->badge(fn () => Dashboard::version(), Color::DARK),
 
-                Menu::make('Tasks')
+            Menu::make('Tasks')
                 ->icon('bag')
                 ->route('platform.task')
-                ->title('Tools')
+                ->title('Tools'),
+
+            Menu::make('Surveys')
+                ->icon('book')
+                ->route('platform.survey')
+                ->title('Surveys')
         ];
     }
 

@@ -3,9 +3,11 @@
 import { Head } from '@inertiajs/vue3';
 import "survey-core/defaultV2.min.css";
 import "survey-creator-core/survey-creator-core.min.css";
+import "axios";
 
 import { SurveyCreator } from "survey-creator-knockout";
 
+// const props = ['structure'];
 const creatorOptions = {
     showLogicTab: true,
     isAutoSave: true,
@@ -20,6 +22,7 @@ const creatorOptions = {
 
 export default {
     name: "survey-creator",
+    props:['structure', 'surveyid', 'name'],
     data() {
         return {
             survey: {},
@@ -29,10 +32,21 @@ export default {
     },
     mounted() {
         let creator = new SurveyCreator(creatorOptions);
-        creator
+        
         creator.render("surveyCreator");
+        creator.text = this.structure;
+        console.log(this.structure);
+        // console.warn("The survey id is",this.surveyid);
+        let curr = window.location.href;
+        let ida = curr.split("/")
         creator.saveSurveyFunc = (saveNo, callback) => {
+            saveSurveyJson(
+          "https://test.survey/api/surveys/create/" + ida.at(-1),
 
+          creator.JSON,
+          saveNo,
+          callback
+      );
         }
     },
 
@@ -63,8 +77,29 @@ export default {
                     })
             }
     }
+
+
 }
 
+function saveSurveyJson(url, json, saveNo, callback) {
+
+    let formData = new FormData();
+    // formData.append("structure", )
+
+    axios.put(url, {
+        'json': JSON.stringify(json)
+    })
+  .then(response => {
+    if (response.ok) {
+      callback(saveNo, true);
+    } else {
+      callback(saveNo, false);
+    }
+  })
+  .catch(error => {
+    callback(saveNo, false);
+  });
+}
 // const props = defineProps(['user']);
 </script>
  
