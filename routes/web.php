@@ -34,6 +34,8 @@ Route::get('/admin/surveys/create/{survey}', [SurveyController::class, 'create']
 
 Route::get('/survey/{survey}', [SurveyController::class, 'show'])->name('surveys.show');
 
+Route::get('/survey/analytics/{survey}', [SurveyController::class, 'visualize'])->name('surveys.visualize');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

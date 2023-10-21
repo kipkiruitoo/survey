@@ -51,6 +51,28 @@ class SurveyController extends Controller
         ]);
     }
 
+    public function visualize(Survey $survey)
+    {
+        $results = $survey->results()->get()->pluck('json')->map(function ($result){
+            return json_decode($result);
+        })->toArray();
+
+        // foreach ($results as $key => $result) {
+            
+        //     $results[$key] = json_decode($result); 
+        //     // dd($results[$key]);
+        // }
+
+
+        return Inertia::render('Surveys/Visualize', [
+            'results' => json_encode($results),
+            'structure' => $survey->structure,
+            'surveyid'=> (String) $survey->id,
+            'name' => $survey->name,
+        ]);
+    }
+
+
    
 
     /**

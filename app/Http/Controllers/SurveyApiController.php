@@ -10,7 +10,7 @@ class SurveyApiController extends Controller
     
     public function store(Survey $survey, Request $request){
         $request->validate([
-            'uuid' => 'required',
+            'uuid' => 'required|unique:survey_results,id',
             'json'  =>  'required',
         ]);
 
