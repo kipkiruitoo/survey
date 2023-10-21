@@ -42,10 +42,16 @@ class SurveyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Survey $survey)
     {
-        //
+        return Inertia::render('Surveys/Show', [
+            'structure' => $survey->structure,
+            'surveyid'=> (String) $survey->id,
+            'name' => $survey->name,
+        ]);
     }
+
+   
 
     /**
      * Show the form for editing the specified resource.

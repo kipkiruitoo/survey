@@ -1,5 +1,5 @@
 <script >
-// import Layout from '@/Layouts/Authenticated.vue';
+import Layout from '@/Layouts/Authenticated.vue';
 import { Head } from '@inertiajs/vue3';
 import "survey-core/defaultV2.min.css";
 import "survey-creator-core/survey-creator-core.min.css";

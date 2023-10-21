@@ -14,6 +14,10 @@ export default defineConfig({
                     base: null,
                     includeAbsolute: false,
                 },
+                compilerOptions: {
+                    // i am ignorning my custom '<container>' tag
+                    isCustomElement: (tag) => ['container'].includes(tag)
+                  }
             },
         }),
     ],
