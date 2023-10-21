@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('survey_id');
             $table->foreignId('user_id')->nullable();
             $table->string('ip_address')->nullable();
+            $table->timestamps();
             $table->softDeletes();
 
         });

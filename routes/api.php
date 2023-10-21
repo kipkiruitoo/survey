@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SurveyApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Survey;
@@ -28,7 +29,5 @@ Route::put('/surveys/create/{survey}', function (Survey $survey, Request $reques
 });
 
 
-Route::resource('/survey', 'SurveyAPIController', ['only' => [
-    'index', 'store', 'update', 'destroy', 'show',
-]]);
-Route::resource('/survey/{survey}/result', 'SurveyResultAPIController');
+
+Route::post('/survey/{survey}/result', [SurveyApiController::class, 'store']);

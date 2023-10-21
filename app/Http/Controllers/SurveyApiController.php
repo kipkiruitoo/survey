@@ -10,12 +10,15 @@ class SurveyApiController extends Controller
     
     public function store(Survey $survey, Request $request){
         $request->validate([
+            'uuid' => 'required',
             'json'  =>  'required',
         ]);
 
         $result = $survey->results()->create([
 
+            'uuid' =>  $request->input('uuid'),
             'json'          =>  $request->input('json'),
+            'survey_id' => $request->input($survey->id),
             'ip_address'    =>  $request->ip(),
         ]);
     }

@@ -11,5 +11,12 @@ class SurveyResult extends Model
 {
     use HasFactory, UUID, SoftDeletes;
 
+    protected $fillable = [
+        'id',
+        'json',
+        'survey_id',
+        'ip_adress'
+      
+    ];
     
 }

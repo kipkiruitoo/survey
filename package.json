@@ -20,6 +20,7 @@
     "dependencies": {
         "survey-creator-knockout": "^1.9.113",
         "survey-vue-ui": "^1.9.113",
-        "survey-vue3-ui": "^1.9.113"
+        "survey-vue3-ui": "^1.9.113",
+        "uuid": "^9.0.1"
     }
 }
