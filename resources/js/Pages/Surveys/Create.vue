@@ -1,6 +1,7 @@
 <script >
-import Layout from '@/Layouts/Authenticated.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+// import { Head } from '@inertiajs/vue3';
 import "survey-core/defaultV2.min.css";
 import "survey-creator-core/survey-creator-core.min.css";
 import "axios";
@@ -16,13 +17,17 @@ const creatorOptions = {
     showTranslationTab: true,
     haveCommercialLicense: true,
     showErrorOnFailedSave: true,
-    showPagesInPreviewTab:true,
+    showPagesInPreviewTab: true,
     previewOrientation: "portrait"
 };
 
 export default {
     name: "survey-creator",
-    props:['structure', 'surveyid', 'name'],
+    props: ['structure', 'surveyid', 'name'],
+    components: {
+        Head,
+        AuthenticatedLayout
+    },
     data() {
         return {
             survey: {},
@@ -32,7 +37,7 @@ export default {
     },
     mounted() {
         let creator = new SurveyCreator(creatorOptions);
-        
+
         creator.render("surveyCreator");
         creator.text = this.structure;
         console.log(this.structure);
@@ -41,41 +46,41 @@ export default {
         let ida = curr.split("/")
         creator.saveSurveyFunc = (saveNo, callback) => {
             saveSurveyJson(
-          "https://test.survey/api/surveys/create/" + ida.at(-1),
+                "https://test.survey/api/surveys/create/" + ida.at(-1),
 
-          creator.JSON,
-          saveNo,
-          callback
-      );
+                creator.JSON,
+                saveNo,
+                callback
+            );
         }
     },
 
-    methods:  {
+    methods: {
         getSurvey(id) {
-                axios.get('/survey/' + id)
-                    .then((response) => {
-                        this.survey = response.data.data;
-                        this.surveyName = response.data.data.name;
-                    })
-                    .catch((error) => {
-                        console.log(error.response)
-                    })
-            },
-            onCancelEdit() {
-                this.nameField = false;
-                this.surveyName = this.survey.name;
-            },
-            postEdit() {
-                axios.put('/survey/' + this.survey.id, {name: this.surveyName})
-                    .then((response) => {
-                        this.nameField = false;
-                        this.$root.snackbarMsg = response.data.message;
-                        this.$root.snackbar = true;
-                    })
-                    .catch((error) => {
-                        console.error(error.response);
-                    })
-            }
+            axios.get('/survey/' + id)
+                .then((response) => {
+                    this.survey = response.data.data;
+                    this.surveyName = response.data.data.name;
+                })
+                .catch((error) => {
+                    console.log(error.response)
+                })
+        },
+        onCancelEdit() {
+            this.nameField = false;
+            this.surveyName = this.survey.name;
+        },
+        postEdit() {
+            axios.put('/survey/' + this.survey.id, { name: this.surveyName })
+                .then((response) => {
+                    this.nameField = false;
+                    this.$root.snackbarMsg = response.data.message;
+                    this.$root.snackbar = true;
+                })
+                .catch((error) => {
+                    console.error(error.response);
+                })
+        }
     }
 
 
@@ -89,16 +94,16 @@ function saveSurveyJson(url, json, saveNo, callback) {
     axios.put(url, {
         'json': JSON.stringify(json)
     })
-  .then(response => {
-    if (response.ok) {
-      callback(saveNo, true);
-    } else {
-      callback(saveNo, false);
-    }
-  })
-  .catch(error => {
-    callback(saveNo, false);
-  });
+        .then(response => {
+            if (response.ok) {
+                callback(saveNo, true);
+            } else {
+                callback(saveNo, false);
+            }
+        })
+        .catch(error => {
+            callback(saveNo, false);
+        });
 }
 // const props = defineProps(['user']);
 </script>
@@ -106,7 +111,7 @@ function saveSurveyJson(url, json, saveNo, callback) {
 <template>
     <Head title="Create a Survey" />
 
-    <Layout>
+    <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Create a Survey
@@ -114,14 +119,10 @@ function saveSurveyJson(url, json, saveNo, callback) {
         </template>
 
         <div class="py-12">
-            <div id="surveyCreator" />
+            <div class="max-w-8xl mx-2 sm:px-6 lg:px-4">
+                <div class="bg-white dark:bg-gray-800 shadow" id="surveyCreator" />
+            </div>
         </div>
-    </Layout>
+    </AuthenticatedLayout>
 </template>
 
-<style scoped>
-#surveyCreator {
-    height: 100vh;
-    width: 100vw;
-}
-</style>

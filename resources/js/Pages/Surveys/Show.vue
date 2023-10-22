@@ -8,8 +8,8 @@
 
 
 
-    <div class="py-12">
-        <SurveyComponent :model="survey" />
+    <div >
+        <SurveyComponent height="100vh" :model="survey" />
     </div>
 </template>
 <script setup>
@@ -20,12 +20,14 @@ import "survey-core/defaultV2.min.css";
 import { Head } from '@inertiajs/vue3';
 import {v4 as uuidv4} from 'uuid';
 import axios from "axios";
+import { LayeredDarkPanelless } from "survey-core/themes/layered-dark-panelless";
 
 
 
 const props = defineProps(['structure', 'surveyid', 'name']);
 
 const survey = new Model(props.structure);
+// survey.applyTheme(LayeredDarkPanelless);
 // console.log(props.structure);
 survey.onComplete.add((sender, options) => {
     let curr = window.location.href;
@@ -54,4 +56,7 @@ function saveSurveyResults(url,json) {
 
 </script>
 
-<style></style>
+<style>
+.survey{
+    height: 100vh;
+}</style>

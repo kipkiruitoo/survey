@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveyController;
+use App\Models\Survey;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,14 +29,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+
+    $surveys = Survey::where('user_id', Auth::id())->get()->all();
+    return Inertia::render('Dashboard', [ 'surveys' => $surveys]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/surveys/create/{survey}', [SurveyController::class, 'create'])->name('surveys.create');
+Route::get('/admin/surveys/create/{survey}', [SurveyController::class, 'create'])->middleware(['auth', 'verified'])->name('surveys.create');
 
 Route::get('/survey/{survey}', [SurveyController::class, 'show'])->name('surveys.show');
 
-Route::get('/survey/analytics/{survey}', [SurveyController::class, 'visualize'])->name('surveys.visualize');
+Route::get('/survey/analytics/{survey}', [SurveyController::class, 'visualize'])->middleware(['auth', 'verified'])->name('surveys.visualize');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

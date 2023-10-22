@@ -16,7 +16,7 @@ export default defineConfig({
                 },
                 compilerOptions: {
                     // i am ignorning my custom '<container>' tag
-                    isCustomElement: (tag) => ['container'].includes(tag)
+                    isCustomElement: (tag) => ['container', ].includes(tag)
                   }
             },
         }),

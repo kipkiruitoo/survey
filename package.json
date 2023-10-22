@@ -18,6 +18,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "json-2-csv": "^4.1.0",
         "survey-analytics": "^1.9.113",
         "survey-creator-knockout": "^1.9.113",
         "survey-vue-ui": "^1.9.113",

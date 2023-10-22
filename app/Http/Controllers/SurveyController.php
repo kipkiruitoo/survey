@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Survey;
+use Illuminate\Support\Facades\Auth;
 
 class SurveyController extends Controller
 {
@@ -22,13 +23,15 @@ class SurveyController extends Controller
      */
     public function create(Survey $survey)
     {
-        // dd($survey);
-        //
+       if ($survey->user_id == Auth::user()->id) {
         return Inertia::render('Surveys/Create', [
             'structure' => $survey->structure,
             'surveyid'=> (String) $survey->id,
             'name' => $survey->name,
-        ]);
+        ]);}
+        else{
+            return redirect(null, 403)->route('dashboard'); 
+        }
     }
 
     /**
@@ -62,6 +65,10 @@ class SurveyController extends Controller
         //     $results[$key] = json_decode($result); 
         //     // dd($results[$key]);
         // }
+
+        if ($survey->user_id != Auth::id()) {
+            return redirect(null, 403)->route('dashboard');
+        }
 
 
         return Inertia::render('Surveys/Visualize', [
