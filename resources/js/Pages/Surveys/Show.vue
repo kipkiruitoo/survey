@@ -32,7 +32,7 @@ const survey = new Model(props.structure);
 survey.onComplete.add((sender, options) => {
     let curr = window.location.href;
     let ida = curr.split("/")
-    saveSurveyResults("https://test.survey/api/survey/" +ida.at(-1) +"/result" , sender.data)
+    saveSurveyResults("/api/survey/" +ida.at(-1) +"/result" , sender.data)
 });
 
 function saveSurveyResults(url,json) {
