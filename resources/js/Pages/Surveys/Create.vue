@@ -46,7 +46,7 @@ export default {
         let ida = curr.split("/")
         creator.saveSurveyFunc = (saveNo, callback) => {
             saveSurveyJson(
-                "https://test.survey/api/surveys/create/" + ida.at(-1),
+                "/api/surveys/create/" + ida.at(-1),
 
                 creator.JSON,
                 saveNo,
