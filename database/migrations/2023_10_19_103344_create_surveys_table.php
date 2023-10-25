@@ -17,6 +17,7 @@ return new class extends Migration
             $table->jsonb('structure');
             $table->foreignId('user_id');
             $table->timestamps();
+            $table->timestamps();
         });
     }
 

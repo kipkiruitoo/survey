@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('survey_results', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->json('json');
-            $table->foreignId('survey_id');
+            $table->uuid('survey_id');
             $table->foreignId('user_id')->nullable();
             $table->string('ip_address')->nullable();
             $table->timestamps();
